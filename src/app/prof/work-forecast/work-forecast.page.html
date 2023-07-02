@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <div class="container" style="margin-top: 20%;">
+    <ion-row>
+      <!-- <ion-col size="2"> -->
+      <!-- ngIf: date>today -->
+      <!-- </ion-col> -->
+      <ion-col size="2">
+        <ion-button (click)="previousDay()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="8">
+        <ion-item>
+          <ion-input [value]="date | date: 'dd/MM/yyyy'" id="date"></ion-input>
+          <ion-popover trigger="date">
+            <ng-template>
+              <ion-datetime presentation="date" locale="es-ES" [showDefaultButtons]="true" doneText="Confirm"
+                cancelText="Cancel" (ionChange)="dateSelected($event)" [min]="getMinDate()" [max]="getMaxDate()">
+              </ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button (click)="nextDay()">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Clases</ion-card-title>
+      </ion-card-header>
+      <ion-card-header>
+        <ion-card-title class="ion-text-end" id="selected-date">{{fechaSeleccionada}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+  </div>
+  <div *ngFor="let class of listClass">
+    <ion-card style="display: flex; flex-direction: column;" color="primary" 
+    *ngIf="class.fecha == fechaSeleccionada && class.id_prof == idProf" (click)="openClasses(class, (class.datos_titular.nombre+' '+class.datos_titular.apellido))">
+      <div style="position: absolute; right: 1.5vh; top: 1vh;">
+        {{class.punto_encuentro}} {{class.nivel}}
+      </div>
+      <ion-card-content>
+        <h1>          
+          {{class.datos_titular.nombre}} {{class.datos_titular.apellido}}
+        </h1>
+        <div style="font-size: large;">
+          {{class.modalidad}}
+        </div>
+      <div class="divTimeClass">
+        <div>{{class.hora}} a {{calculateEndTime(class.hora, class.duracion)}}</div>
+        <div style="text-align: right;">{{class.id}}</div>
+      </div>
+    </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

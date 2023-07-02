@@ -1,0 +1,46 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+	<ion-card class="login-card">
+		<form (ngSubmit)="login()" [formGroup]="credentials">
+			<div class="logo_img">
+				<img src="../../../assets/images/skinow_sinft.png" alt="Logo_SkiNow">
+			</div>
+			<div class="Inputsformulario">
+				<div class="inputLogin">
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" name="mail-outline"
+							slot="start"></ion-icon>
+						<ion-label position="floating">Correo</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" [(ngModel)] = "this.correo" type="email" formControlName="email"
+							placeholder="Introduce un correo"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" slot="start"
+							name="lock-closed-outline"></ion-icon>
+						<ion-label position="floating">Contraseña</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" [(ngModel)] = "this.pass" type="password"
+							formControlName="password" placeholder="Introduce una contraseña"></ion-input>
+						<ion-note slot="error" style="color: black;"
+							*ngIf="credentials?.get('password')?.dirty || credentials?.get('password')?.touched && credentials?.get('password')?.errors">
+							La contraseña debe tener 6 caracteres
+						</ion-note>
+					</ion-item>
+				</div>
+				<div class="resetPass">
+					<ion-item lines="none">
+						<ion-checkbox formControlName="rememberMe"></ion-checkbox>
+						<p style="margin-left: 5px; font-size: 13px;">Recuérdame</p>
+					</ion-item>
+					<p style="color: dodgerblue; text-align: right;" (click)="resetPass()">¿Perdiste la constraseña?</p>
+				</div>
+				<div class="buttons">
+					<ion-button type="submit" fill="solid" shape="round" expand="block"
+						[disabled]="!credentials.valid">Entrar</ion-button>
+				</div>
+				<div class="useroregister">
+					<p>¿Eres nuevo usuario? <u style="color: dodgerblue;" (click)="register()">Registrate</u></p>
+				</div>
+			</div>
+
+		</form>
+	</ion-card>
+</ion-content>

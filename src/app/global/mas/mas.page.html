@@ -1,0 +1,65 @@
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  
+  <div class="container" style=" margin-bottom: 20%;">
+    <div slot="fixed" style=" margin-top:15%; display: flex; align-items: center; justify-content: center; font-weight: bold; width: 100%; text-align: center;">  
+      <h1>Información</h1>
+    </div>
+  
+  <ion-list lines="inset">
+    <p class="subTittle">Contacta con nosotros</p>
+    <ion-item class="buttonItem" (click)="callPhoneNumber('636166700')">
+      <ion-icon color="primary" name="call-outline"></ion-icon>
+      <ion-label style="margin-left: 10px;">Llamar 123 123 123</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="buttonItem" (click)="sendEmail('info@skinow.es')">
+      <ion-icon color="primary" name="mail-outline"></ion-icon>
+      <ion-label style="margin-left: 10px;">info@skinow.es</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="buttonItem" (click)="customerSupport()">
+      <ion-icon color="primary" name="headset-outline"></ion-icon>
+      <ion-label style="margin-left: 10px;">Atención al cliente</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="inset">
+    <p class="subTittle">Redes Sociales</p>
+    <ion-item class="buttonItem" (click)="clickHandler('Facebook')">
+      <ion-icon color="primary" name="logo-facebook"></ion-icon>
+      <ion-label style="margin-left: 10px;">Facebook</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="buttonItem" (click)="clickHandler('Twitter')">
+      <ion-icon color="primary" name="logo-twitter"></ion-icon>
+      <ion-label style="margin-left: 10px;">Twitter</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="buttonItem" (click)="clickHandler('YouTube')">
+      <ion-icon color="primary" name="logo-youtube"></ion-icon>
+      <ion-label style="margin-left: 10px;">Youtube</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item class="buttonItem" (click)="clickHandler('Instagram')">
+      <ion-icon color="primary" name="logo-instagram"></ion-icon>
+      <ion-label style="margin-left: 10px;">Instagram</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="inset">
+    <p class="subTittle">Legal</p>
+    <ion-item class="buttonItem" (click)="openPrivacyModal()">
+      <ion-icon color="primary" name="document-text-outline"></ion-icon>
+      <ion-label style="margin-left: 10px;">Condiciones y Política de privacidad</ion-label>
+      <ion-icon color="primary" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+</div>
+
+</ion-content>

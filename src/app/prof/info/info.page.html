@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div style="margin-top: 15%;">
+
+    <div class="toolbar">
+      <h2>{{monthName}} {{year}}</h2>
+      <div class="button-group">
+        <ion-button size="small" (click)="changeMonth($event)">
+          <ion-label>Hoy</ion-label>
+        </ion-button>
+        <ion-button size="small" id="back" (click)="changeMonth($event)">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" id="forward" (click)="changeMonth($event)">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="calendar">
+      <ion-grid class="grid-calendar">
+        <ion-row class="header-row">
+          <ion-col class="header" *ngFor="let day of daysOfWeek">{{ day }}</ion-col>
+        </ion-row>
+        <ion-row class="days" *ngFor="let week of weeks">
+          <ion-col class="day" *ngFor="let day of week">
+            <div class="day-content" *ngIf="day>0">{{ day }}
+              <div *ngFor="let class of monthClass">
+                <div class="fc-content" *ngIf="(day + '/' + (month + 1) + '/' + year) === class.fecha">
+                  <span class="fc-time">{{ class.hora }}</span><br>
+                  <span class="fc-title">Parti. {{ class.duracion }}h</span>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="calculations">
+      <ion-card>
+        <ion-card-header style="display: flex; align-items: center;">
+          <ion-card-title>Resumen horas</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="calc-contennt">
+          <ion-label>Horas: </ion-label>
+          <ion-label>{{ totalDuration }} h</ion-label>
+        </ion-card-content>
+
+        <ion-card-content class="calc-contennt">
+          <ion-label>Total a liquidar:</ion-label>
+          <ion-label>{{ totalToSettle }} €</ion-label>
+        </ion-card-content>
+
+      </ion-card>
+    </div>
+
+
+  </div>
+</ion-content>

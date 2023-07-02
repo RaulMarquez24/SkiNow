@@ -1,0 +1,32 @@
+<ion-content class="ion-padding">
+	<ion-card class="login-card">
+		<form (ngSubmit)="OnSubmit()" [formGroup]="credentials">
+			<div class="logo_img">
+				<img src="../../../assets/images/skinow_sinft.png" alt="Logo_SkiNow">
+			</div>
+			<div class="Inputsformulario">
+				<div class="inputLogin">
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" name="mail-outline"
+							slot="start"></ion-icon>
+						<ion-label position="floating">Correo</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" type="email" formControlName="email"
+							placeholder="Introduce un correo"></ion-input>
+					</ion-item>
+					<ion-item *ngIf="email?.invalid && email?.touched" lines="none">
+						<ion-text color="danger" class="form-error">
+							Introduce un correro valido
+						</ion-text>
+					</ion-item>
+				</div>
+				<div class="buttons">
+					<ion-button type="submit" fill="solid" shape="round" expand="block"
+						[disabled]="!credentials.valid">Enviar Correo</ion-button>
+				</div>
+				<div class="useroregister">
+					<p>¿Ya tienes cuenta? <u style="color: dodgerblue;" (click)="login()">Entrar</u></p>
+				</div>
+			</div>
+		</form>
+	</ion-card>
+</ion-content>

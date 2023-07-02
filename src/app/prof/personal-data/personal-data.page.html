@@ -1,0 +1,208 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container" style="margin-top: 10%; margin-bottom: 10%;">
+    <div>
+
+
+      <!-- Nombre del user -->
+      <div [ngClass]="{'card': !isDarkMode, 'cardDark': isDarkMode}">
+      <h2 class="title">{{ profile.datos_personales.nombre+" "+profile.datos_personales.apellido }}</h2>
+      <!-- PHOTO -->
+      <div class="preview" style="flex-direction: column; align-items: center;">
+        <ion-avatar (click)="saveImage()">
+          <img *ngIf="this.profile.imagen_perfil; else fallback" [src]="this.profile.imagen_perfil" />
+          <ng-template #fallback>
+            <div class="fallback">
+              <p>Select avatar</p>
+            </div>
+          </ng-template>
+        </ion-avatar>
+      </div>
+  
+        <h3 class="card__title">Datos Personales</h3>
+        <!-- NAME -->
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Nombre del profesor"
+              [(ngModel)]="profile.datos_personales.nombre"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- LASTNAME -->
+        <div class="form-group">
+          <label for="name">Apellidos</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Apellidos del profesor"
+              [(ngModel)]="profile.datos_personales.apellido"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- GENDER -->
+        <div class="form-group">
+          <label for="gender">Género</label>
+          <ion-item>
+            <ion-select [(ngModel)]="profile.datos_personales.genero" placeholder="Seleccione su género">
+              <ion-select-option value="M">Masculino</ion-select-option>
+              <ion-select-option value="F">Femenino</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+  
+        <!-- BIRTH DATE -->
+        <div class="form-group">
+          <label for="birthdate">Fecha de nacimiento</label>
+          <ion-item>
+            <ion-input placeholder="dd/mm/yyyy" [value]="date" [(ngModel)]="profile.datos_personales.fecha" id="date"></ion-input>
+            <ion-popover trigger="date">
+              <ng-template>
+                <ion-datetime presentation="date" locale="es-ES" [showDefaultButtons]="true" doneText="Confirm"
+                  cancelText="Cancel" (ionChange)="dateSelected($event)">
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </div>
+  
+        <!-- ADDRESS -->
+        <div class="form-group">
+          <label for="name">Dirección</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Dirección" [(ngModel)]="profile.datos_personales.direccion"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- Cp. -->
+        <div class="form-group">
+          <label for="name">Código Postal</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Codigo Postal"
+              [(ngModel)]="profile.datos_personales.codigoPostal"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- CITY -->
+        <div class="form-group">
+          <label for="name">Población</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Población" [(ngModel)]="profile.datos_personales.poblacion"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- PROVINCE -->
+        <div class="form-group">
+          <label for="name">Provincia</label>
+          <ion-item>
+            <ion-input type="name" [clearInput]="true" placeholder="Provincia" [(ngModel)]="profile.datos_personales.provincia"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+  
+      <div [ngClass]="{'card': !isDarkMode, 'cardDark': isDarkMode}">
+        <h3 class="card__title">Documentos</h3>
+  
+        <!-- Country DNI -->
+        <div class="form-group">
+          <label for="identityCardType">Tipo</label>
+          <ion-item>
+            <ion-select [(ngModel)]="profile.documentos.tipo" placeholder="Seleccione un pais">
+              <ion-select-option value="DNI">DNI</ion-select-option>
+              <ion-select-option value="other">Otro documento</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+  
+        <!-- DNI NUMBER -->
+        <div class="form-group">
+          <label for="dniNum">DNI</label>
+          <ion-item>
+            <ion-input type="text" [clearInput]="true" placeholder="Numero del DNI"
+              [(ngModel)]="profile.documentos.documento"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+  
+      <div [ngClass]="{'card': !isDarkMode, 'cardDark': isDarkMode}">
+        <h3 class="card__title">Datos de contacto</h3>
+  
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <ion-item>
+            <ion-input style="font-size: 13px;" [clearInput]="true" type="email" [(ngModel)]="profile.contactos.email"
+              placeholder="Introduce un correo"></ion-input>
+          </ion-item>
+        </div>
+  
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phoneNum">T.Movil</label>
+          <ion-item>
+            <ion-input type="text" [clearInput]="true" placeholder="Numero de telefono"
+              [(ngModel)]="profile.contactos.telefono"></ion-input>
+          </ion-item>
+        </div>
+  
+        <ion-button (click)="onSubmit()" fill="solid" shape="round" expand="block">Guardar</ion-button>
+      </div>
+    </div>
+
+    <div [ngClass]="{'card': !isDarkMode, 'cardDark': isDarkMode}">
+      <div [ngClass]="{'card': !isDarkMode, 'cardDark': isDarkMode}">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <ion-label>Disponibilidad Seleccionada Anteriormente:</ion-label>
+          <ion-icon *ngIf="!dSAVisible" (click)="dSAChangeVisible()" name="chevron-up-outline"></ion-icon>
+          <ion-icon *ngIf="dSAVisible" (click)="dSAChangeVisible()" name="chevron-down-outline"></ion-icon>
+        </div>
+
+        <div style="margin-top: 5%;" *ngIf="dSAVisible">
+          <div class="form-group">
+            <ion-item style="margin-top: 3%;" [ngClass]="{'listDark': isIos}">
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <ion-row size="3">
+                  <ion-label *ngFor="let f of fechasActuales" style="margin: 3%; font-size: 12px;">{{f}}</ion-label>    
+                </ion-row>
+              </div>
+            </ion-item>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="card__title">Disponibilidad</h3>
+
+      <div class="calendarContainer" id="calendar-container">
+        <ion-datetime [(ngModel)]="selectedDates[0]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateNov()" [max]="getMaxDateNov()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedDates[1]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateDic()" [max]="getMaxDateDic()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedDates[2]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateEne()" [max]="getMaxDateEne()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedDates[3]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateFeb()" [max]="getMaxDateFeb()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedDates[4]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateMar()" [max]="getMaxDateMar()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedDates[5]" presentation="date" locale="es-ES" [multiple]="true"
+          [min]="getMinDateAbr()" [max]="getMaxDateAbr()" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-button fill="solid" shape="round" expand="block" (click)="guardarFechas()">Guardar</ion-button>
+      </div>
+      <!-- <div class="checkbox-container">
+        <label>
+          <input type="checkbox" [(ngModel)]="checkAllDays" (change)="toggleCheckAllDays()">
+          Marcar todos los días
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="checkWeekendDays" (change)="toggleCheckWeekendDays()">
+          Marcar solo fines de semana
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="checkWeekdayDays" (change)="toggleCheckWeekdayDays()">
+          Marcar solo días de semana
+        </label>
+      </div> -->
+    </div>
+  </div>
+</ion-content>

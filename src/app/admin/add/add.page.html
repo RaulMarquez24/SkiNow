@@ -1,0 +1,105 @@
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-searchbar style="margin-top: 18%;" [(ngModel)]="searchTerm" (ionChange)="applyFilters()" (ionClear)="clearSearch()"
+    placeholder="Buscador" slot="fixed"></ion-searchbar>
+  <div class="container" style="margin-bottom: 20%; margin-top: 35%;">
+    <ion-card>
+      <ion-card-content>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <ion-card-title>Clases</ion-card-title>
+          <ion-card-title color="primary" *ngIf="classesVisible" (click)="closeCalendar()">
+            Calendario
+            <ion-icon *ngIf="!calendarVisible" name="chevron-up-outline"></ion-icon>
+            <ion-icon *ngIf="calendarVisible" name="chevron-down-outline"></ion-icon>
+          </ion-card-title>
+          <ion-card-title>
+            <ion-icon *ngIf="!classesVisible" (click)="classesChangeVisible()" name="chevron-up-outline"></ion-icon>
+            <ion-icon *ngIf="classesVisible" (click)="classesChangeVisible()" name="chevron-down-outline"></ion-icon>
+          </ion-card-title>
+        </div>
+
+        <ion-list [ngClass]="{'listDark': isIos}" *ngIf="classesVisible">
+          <ion-datetime *ngIf="calendarVisible" [(ngModel)]="dateClass" (ionChange)="handleDateChange()" [min]="getMinDate()" [max]="getMaxDate()"
+            presentation="date" locale="es-ES" style="margin-block: 5%; border-radius: 5%;">
+          </ion-datetime>
+          <ng-container *ngFor="let classes of filteredClasses">
+            <ng-container *ngIf="dateSelected === classes.fecha">
+              <ion-item (click)="openClasses(classes,'Editar')">
+                <div class="tablaUsers">
+                  <div class="divContenidoItems">
+                    <div>{{classes.datos_titular.nombre}} {{classes.datos_titular.apellido}}</div>
+                    <div>{{classes.modalidad}}</div>
+                    <div>{{classes.hora}}</div>
+                  </div>
+                </div>
+              </ion-item>
+            </ng-container>
+          </ng-container>
+        </ion-list>
+        <!-- <ion-fab *ngIf="classesVisible" vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" (click)="addClasses('Crear')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab> -->
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <ion-card-title>Anuncios</ion-card-title>
+          <ion-card-title>
+            <ion-icon *ngIf="!adsVisible" (click)="adsChangeVisible()" name="chevron-up-outline"></ion-icon>
+            <ion-icon *ngIf="adsVisible" (click)="adsChangeVisible()" name="chevron-down-outline"></ion-icon>
+          </ion-card-title>
+        </div>
+
+        <ion-list [ngClass]="{'listDark': isIos}" style="margin-bottom: 13%;" *ngIf="adsVisible">
+          <ion-item *ngFor="let ads of filteredAds" (click)="openAds(ads,'Editar')">
+            <div class="tablaUsers">
+              <div class="divContenidoItems">
+                <div style="text-align: justify;">{{ads.titulo}}</div>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+        <ion-fab *ngIf="adsVisible" vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" (click)="addAds('Crear')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <ion-card-title>Codigos Descuentos</ion-card-title>
+          <ion-card-title>
+            <ion-icon *ngIf="!codesDisVisible" (click)="codesDisChangeVisible()" name="chevron-up-outline"></ion-icon>
+            <ion-icon *ngIf="codesDisVisible" (click)="codesDisChangeVisible()" name="chevron-down-outline"></ion-icon>
+          </ion-card-title>
+        </div>
+
+        <ion-list [ngClass]="{'listDark': isIos}" style="margin-bottom: 13%;" *ngIf="codesDisVisible">
+          <ion-item *ngFor="let code of fliteredCodesDiscounts" (click)="openCodeDiscount(code,'Editar')">
+            <div class="tablaUsers">
+              <div class="divContenidoItems">
+                <div>{{code.nombre}}</div>
+                <div>{{code.porcentaje}}%</div>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+        <ion-fab *ngIf="codesDisVisible" vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" (click)="addCodeDiscount('Crear')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "SkiNow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

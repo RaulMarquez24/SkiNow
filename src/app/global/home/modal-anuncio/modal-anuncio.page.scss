@@ -1,0 +1,31 @@
+.modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // max-width: 80%;
+    // max-height: 80%;
+    overflow: auto;
+}
+
+.titulo{
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 5%;
+}
+.descripcion{
+    margin-top: 5%;
+    text-align: justify;
+    margin-bottom: 50%;
+    font-size: 15px;
+}
+
+ion-card{
+    padding: 5%;
+    border-radius: 5%;
+    
+}

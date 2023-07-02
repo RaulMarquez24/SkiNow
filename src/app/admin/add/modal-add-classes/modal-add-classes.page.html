@@ -1,0 +1,206 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img style="position: absolute; margin-left: -10%; height: 80px;" src="assets/images/letras_skinowE.png"
+        alt="letrasSkiNow">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="card">
+    <h1 class="divStepTitle">
+      <ion-label color="primary">{{title}} Clase</ion-label>
+    </h1>
+
+    <div class="card">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3>
+          <ion-label>Datos Titular</ion-label>
+        </h3>
+        <ion-icon *ngIf="!dTVisible" (click)="dTChangeVisible()" name="chevron-up-outline"></ion-icon>
+        <ion-icon *ngIf="dTVisible" (click)="dTChangeVisible()" name="chevron-down-outline"></ion-icon>
+      </div>
+
+      <div style="margin-top: 5%;" *ngIf="dTVisible">
+
+        <div class="form-group">
+          <label for="idA">ID del Titular</label>
+          <ion-item>
+            <ion-input id="idA" type="text" [clearInput]="true" placeholder="Ej: Tgeh465uth... (opcional)"
+              [(ngModel)]="class.datos_titular.id_titular"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <ion-item>
+            <ion-input id="name" type="name" [clearInput]="true" placeholder="Nombre"
+              [(ngModel)]="class.datos_titular.nombre"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="apellidos">Apellidos</label>
+          <ion-item>
+            <ion-input id="apellidos" type="name" [clearInput]="true" placeholder="Apellidos"
+              [(ngModel)]="class.datos_titular.apellido"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="dni">DNI</label>
+          <ion-item>
+            <ion-input id="dni" type="text" [clearInput]="true" placeholder="Número de identificación"
+              [(ngModel)]="class.datos_titular.dni"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <ion-item>
+            <ion-input id="email" type="email" [clearInput]="true" placeholder="Correo electrónico"
+              [(ngModel)]="class.datos_titular.email"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="movil1">Movil</label>
+          <ion-item>
+            <ion-input id="movil1" type="tel" [clearInput]="true" placeholder="Número de contacto"
+              [(ngModel)]="class.datos_titular.telefono"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="movil2">Movil 2</label>
+          <ion-item>
+            <ion-input id="movil2" type="tel" [clearInput]="true" placeholder="Número de contacto (opcional)"
+              [(ngModel)]="class.datos_titular.telefono2"></ion-input>
+          </ion-item>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="id">ID</label>
+      <ion-item>
+        <ion-input id="id" type="text" placeholder="ID de la clase" [(ngModel)]="class.id" [readonly]="true"
+        [disabled]="true"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Fecha de la clase</label>
+      <ion-item>
+        <ion-input [placeholder]="currentDate" [(ngModel)]="class.fecha"></ion-input>
+        <ion-icon id="date" slot="start" name="calendar-outline"></ion-icon>
+        <ion-popover trigger="date">
+          <ng-template>
+            <ion-datetime presentation="date" locale="es-ES" [showDefaultButtons]="true" doneText="Confirm"
+              [min]="getMinDate()" [max]="getMaxDate()" cancelText="Cancel" (ionChange)="dateSelected($event)">
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="time">Hora de la clase</label>
+      <ion-item>
+        <ion-select id="time" placeholder="9:30" [(ngModel)]="class.hora" (ionChange)="durationSelected()">
+          <ion-select-option value="9">9:30</ion-select-option>
+          <ion-select-option value="10">10:30</ion-select-option>
+          <ion-select-option value="11">11:30</ion-select-option>
+          <ion-select-option value="12">12:30</ion-select-option>
+          <ion-select-option value="13">13:30</ion-select-option>
+          <ion-select-option value="14">14:30</ion-select-option>
+          <ion-select-option value="15">15:30</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duración</label>
+      <ion-item>
+        <ion-select id="duration" placeholder="Selecciona la duracion de la clase" [(ngModel)]="class.duracion" (ionChange)="durationSelected()">
+          <ion-select-option value="1">1 hora</ion-select-option>
+          <ion-select-option value="2">2 horas</ion-select-option>
+          <ion-select-option value="3">3 horas</ion-select-option>
+          <ion-select-option value="4">4 horas</ion-select-option>
+          <ion-select-option value="5">5 horas</ion-select-option>
+          <ion-select-option value="6">6 horas</ion-select-option>
+          <ion-select-option value="7">7 horas</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="modality">Modalidad</label>
+      <ion-item>
+        <ion-select id="modality" placeholder="Selecciona la modalidad" [(ngModel)]="class.modalidad">
+          <ion-select-option value="esqui">Esquí</ion-select-option>
+          <ion-select-option value="snowboard">Snowboard</ion-select-option>
+          <ion-select-option value="telemark">Telemark</ion-select-option>
+          <ion-select-option value="nordico">Nórdico</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="level">Nivel</label>
+      <ion-item>
+        <ion-select id="level" placeholder="Selecciona el nivel" [(ngModel)]="class.nivel">
+          <ion-select-option value="A">A</ion-select-option>
+          <ion-select-option value="B">B</ion-select-option>
+          <ion-select-option value="C">C</ion-select-option>
+          <ion-select-option value="D">D</ion-select-option>
+          <ion-select-option value="E">E</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="meetingPoint">Punto de encuentro</label>
+      <ion-item>
+        <ion-input id="meetingPoint" type="text" placeholder="Elige el punto de encuentro (1-50)" 
+        [(ngModel)]="class.punto_encuentro" [clearInput]="true"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="profesor">Profesor</label>
+      <ion-item>
+        <ion-select id="profesor" [placeholder]="'Actual: ' + pActual.datos_personales.nombre +' '+ pActual.datos_personales.apellido" [(ngModel)]="class.id_prof">
+          <ion-select-option *ngFor="let prof of listProfFiltrada"
+            [value]="prof.id">{{prof.datos_personales.nombre}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="botonesModalEditar">
+      <ion-button *ngIf="title=='Editar'" expand="block" color="danger" (click)="deleteClass()">
+        <ion-icon name="trash" slot="start"></ion-icon>
+        Borrar
+      </ion-button>
+      <ion-button *ngIf="title=='Editar'" expand="block" color="success" (click)="updateClass()">
+        <ion-icon name="save" slot="start"></ion-icon>
+        Actualizar
+      </ion-button>
+    </div>
+    <div class="botonesModalCrear">
+      <ion-button *ngIf="title=='Crear'" expand="block" color="primary" (click)="addClass()">
+        <ion-icon name="save" slot="start"></ion-icon>
+        Crear
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>

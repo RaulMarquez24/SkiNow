@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+	<ion-card class="login-card">
+		<form (ngSubmit)="register()" [formGroup]="credentials">
+			<div class="logo_img">
+				<img src="../../../assets/images/skinow_sinft.png" alt="Logo_SkiNow">
+			</div>
+			<div class="Inputsformulario">
+				<div class="inputLogin">
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" slot="start"
+							name="person-outline"></ion-icon>
+						<ion-label position="floating">Nombre</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" type="text" formControlName="name"
+							placeholder="Introduce tu nombre"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" name="mail-outline"
+							slot="start"></ion-icon>
+						<ion-label position="floating">Correo</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" [(ngModel)] = "this.correo" type="email" formControlName="email"
+							placeholder="Introduce un correo"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" slot="start"
+							name="lock-closed-outline"></ion-icon>
+						<ion-label position="floating">Contraseña</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" type="password"
+							formControlName="password" placeholder="Introduce una contraseña"></ion-input>
+						<ion-note slot="error" style="color: black;"
+							*ngIf="credentials?.get('password')?.dirty || credentials?.get('password')?.touched && credentials?.get('password')?.errors">
+							La contraseña debe tener 6 caracteres
+						</ion-note>
+					</ion-item>
+					<ion-item>
+						<ion-icon style="color: black; margin-inline-end: 20px;" slot="start"
+							name="lock-closed-outline"></ion-icon>
+						<ion-label position="floating">Confirmar Contraseña</ion-label>
+						<ion-input style="font-size: 13px;" [clearInput]="true" type="password"
+							formControlName="checkPassword" placeholder="Repita la contraseña"></ion-input>
+						<ion-note slot="error"
+							*ngIf="credentials.get('checkPassword')?.dirty && credentials.get('checkPassword')?.hasError('mismatch')">
+							Las contraseñas no coinciden
+						</ion-note>
+					</ion-item>
+				</div>
+				<div class="buttons">
+					<ion-button type="button" fill="solid" shape="round" expand="block"
+						(click)="checkPass()" [disabled]="!credentials.valid">Crear cuenta</ion-button>
+				</div>
+				<div class="useroregister">
+					<p>¿Ya tienes cuenta? <u style="color: dodgerblue;" (click)="login()">Entrar</u></p>
+				</div>
+			</div>
+		</form>
+	</ion-card>
+</ion-content>

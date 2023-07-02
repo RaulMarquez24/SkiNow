@@ -1,0 +1,92 @@
+ion-card{
+    border-radius: 5%;
+}
+
+.botonesModal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10% 0;
+  }
+  
+  .divPrincipalMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px; 
+  }
+  
+  .divFieldMobile {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Ajusta el margen inferior según tus necesidades */
+  }
+  
+  .divFieldMobile span {
+    color: red;
+    margin-left: 5px;
+  }
+  
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px; /* Ajusta la altura según tus necesidades */
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    position: relative;
+  }
+  
+  .image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .add-icon {
+    font-size: 48px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35vh;
+  }
+
+  .divLabel {
+    background-color: transparent;
+  }
+  
+  .card {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .divStepTitle{
+    text-align: center;
+    padding: 5%;
+    border-radius: 5%;
+    margin-bottom: 5%;
+    margin-top: -2%;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .divGruopLabel{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    padding: 2% 10% 2% 10%;
+  }
+
+  .divGruopLabelAlumnos{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    padding: 2% 10% 2% 10%;
+  }

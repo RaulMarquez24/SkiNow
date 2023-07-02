@@ -1,0 +1,22 @@
+.subTittle{
+    margin-left: 5%;
+    font-weight: bold;
+}
+
+.buttonItem {
+    transition: transform 0.2s;
+  }
+  
+  .buttonItem:active {
+    transform: scale(0.95);
+  }
+
+ion-list{
+    // padding: 5%;
+    background-color: transparent;
+    // margin-right: 5%;
+}
+
+ion-item{
+    --background: rgba(255, 192, 203, 0);
+}

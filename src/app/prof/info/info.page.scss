@@ -1,0 +1,57 @@
+.toolbar {
+  margin-bottom: 1vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.calendar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.empty {
+  background-color: #f0f0f0;
+}
+
+.grid-calendar {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.day {
+  font-size: 10px;
+  text-size-adjust: 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Cambiado a "column" para permitir el ajuste de altura al contenido */
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.day-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea el contenido a la derecha */
+  justify-content: flex-start; /* Alinea el contenido en la parte superior */
+  width: 100%;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: clip;
+  padding: 2px;
+}
+
+.fc-content {
+  background-color: rgba(41, 152, 226, 0.819);
+  color: white;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.calc-contennt {
+  display: flex;
+  justify-content: space-between;
+}

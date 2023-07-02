@@ -1,0 +1,347 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="backStep()">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img style="position: absolute; margin-left: -10%; height: 80px;" src="assets/images/letras_skinowE.png"
+        alt="letrasSkiNow">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="divPrincipal">
+    <div class="card">
+      <div class="pagina1" *ngIf="pagina===1">
+        <h2 class="divStepTitle">
+          Paso 1 de 5: Datos del titular
+        </h2>
+
+        <div class="form-group" *ngIf="user.rol==='adm'">
+          <label for="idA">ID del Titular</label>
+          <ion-item>
+            <ion-input id="idA" type="text" [clearInput]="true" placeholder="Ej: Tgeh465uth... (opcional)"
+              [(ngModel)]="class.datos_titular.id_titular"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <ion-item>
+            <ion-input id="name" type="name" [clearInput]="true" placeholder="Nombre"
+              [(ngModel)]="class.datos_titular.nombre"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="apellidos">Apellidos</label>
+          <ion-item>
+            <ion-input id="apellidos" type="name" [clearInput]="true" placeholder="Apellidos"
+              [(ngModel)]="class.datos_titular.apellido"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="dni">DNI</label>
+          <ion-item>
+            <ion-input id="dni" type="text" [clearInput]="true" placeholder="Número de identificación"
+              [(ngModel)]="class.datos_titular.dni"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <ion-item>
+            <ion-input id="email" type="email" [clearInput]="true" placeholder="Correo electrónico"
+              [(ngModel)]="class.datos_titular.email"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="movil1">Movil</label>
+          <ion-item>
+            <ion-input id="movil1" type="tel" [clearInput]="true" placeholder="Número de contacto"
+              [(ngModel)]="class.datos_titular.telefono"></ion-input>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="movil2">Movil 2</label>
+          <ion-item>
+            <ion-input id="movil2" type="tel" [clearInput]="true" placeholder="Número de contacto (opcional)"
+              [(ngModel)]="class.datos_titular.telefono2"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="pagina1" *ngIf="pagina===2">
+        <h2 class="divStepTitle">
+          Paso 2 de 5: Datos de la Clase
+        </h2>
+
+        <div class="divInfo">
+          Los profesores deshabilitados no se encuentran disponibles en la fecha/hora seleccionadas.<br><br>
+          La lista de profesores se recarga al modificar la fecha, hora, modalidad o duración de la clase.<br><br>
+          La reserva de las clases particulares debe hacerse con un mínimo de 8 horas de antelación.
+        </div>
+
+        <div class="form-group">
+          <label for="date">Fecha de la clase</label>
+          <ion-item>
+            <ion-input [placeholder]="currentDate" [(ngModel)]="class.fecha"></ion-input>
+            <ion-icon id="date" slot="start" name="calendar-outline"></ion-icon>
+            <ion-popover trigger="date">
+              <ng-template>
+                <ion-datetime presentation="date" locale="es-ES" [showDefaultButtons]="true" doneText="Confirm"
+                  [min]="getMinDate()" [max]="getMaxDate()" cancelText="Cancel" (ionChange)="dateSelected($event)">
+                </ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="time">Hora de la clase</label>
+          <ion-item>
+            <ion-select id="time" placeholder="9:30" [(ngModel)]="class.hora" (ionChange)="durationSelected()">
+              <ion-select-option value="9">9:30</ion-select-option>
+              <ion-select-option value="10">10:30</ion-select-option>
+              <ion-select-option value="11">11:30</ion-select-option>
+              <ion-select-option value="12">12:30</ion-select-option>
+              <ion-select-option value="13">13:30</ion-select-option>
+              <ion-select-option value="14">14:30</ion-select-option>
+              <ion-select-option value="15">15:30</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duración</label>
+          <ion-item>
+            <ion-select id="duration" placeholder="Selecciona la duracion de la clase" [(ngModel)]="class.duracion" (ionChange)="durationSelected()">
+              <ion-select-option *ngFor="let h of horasPosibles" [value]="h">{{h}} hora/s</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="modality">Modalidad</label>
+          <ion-item>
+            <ion-select id="modality" placeholder="Selecciona la modalidad" [(ngModel)]="class.modalidad">
+              <ion-select-option value="esqui">Esquí</ion-select-option>
+              <ion-select-option value="snowboard">Snowboard</ion-select-option>
+              <ion-select-option value="telemark">Telemark</ion-select-option>
+              <ion-select-option value="nordico">Nórdico</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="level">Nivel</label>
+          <ion-item>
+            <ion-select id="level" placeholder="Selecciona el nivel" [(ngModel)]="class.nivel">
+              <ion-select-option value="A">A</ion-select-option>
+              <ion-select-option value="B">B</ion-select-option>
+              <ion-select-option value="C">C</ion-select-option>
+              <ion-select-option value="D">D</ion-select-option>
+              <ion-select-option value="E">E</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="meetingPoint">Punto de encuentro</label>
+          <ion-item>
+            <ion-select id="meetingPoint" placeholder="Selecciona el punto de encuentro"
+              [(ngModel)]="class.punto_encuentro" (ionChange)="onSeleccionarZona()">
+              <ion-select-option value="1">Zona baja</ion-select-option>
+              <ion-select-option value="2">Zona media (Recomendado)</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="profesor">Profesor</label>
+          <ion-item>
+            <ion-select id="profesor" placeholder="Selecciona el profesor" [(ngModel)]="class.id_prof">
+              <ion-select-option *ngFor="let prof of listProfFiltrada"
+                [value]="prof.id">{{prof.datos_personales.nombre}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </div>
+      <div class="pagina1" *ngIf="pagina===3">
+        <h2 class="divStepTitle">
+          Paso 3 de 5: Selecciona los Alumnos
+        </h2>
+
+        <div class="form-group">
+          <label for="nAlumnos">Numero de Alumnos</label>
+          <ion-item>
+            <ion-select id="nAlumnos" placeholder="1" [(ngModel)]="nAlumnos" (ionChange)="onChangeNAlumnos()">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div class="form-group">
+          <label for="nameAlumnos">Nombre de los Alumnos</label>
+          <ion-item *ngFor="let i of getAlumnosArray()" style="margin-bottom: 5px;">
+            <ion-input [id]="'nameAlumnos'+ (i + 1)" type="name" [clearInput]="true" [placeholder]="'Alumno ' + (i + 1)"
+              [(ngModel)]="class.alumnos[i]"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+
+      <div class="pagina1" *ngIf="pagina===4">
+        <h2 class="divStepTitle">
+          Paso 4 de 5: Factura
+        </h2>
+
+        <div class="card">
+          <div class="form-group" style="margin-bottom: 2%;">
+            <label for="cdescuento">Codigo de descuento:</label>
+            <ion-item>
+              <ion-input id="cdescuento" type="text" [clearInput]="true" placeholder="Introduce un codigo promocional" [(ngModel)]="codigoDescuento"></ion-input>
+            </ion-item>
+          </div>
+          <div class="divDiscountInvalid" *ngIf="discountInvalid==='si'">
+            ¡Codigo Invalido!
+          </div>
+          <div class="divDiscountValid" *ngIf="discountInvalid==='no'">
+            ¡Descuento Aplicado!
+          </div>
+
+          <div style="display: flex; justify-content: space-between; flex-direction: row;">
+            <h3>Factura</h3>
+            <ion-button size="small" color="primary" style="font-size: small;" (click)="aplyDiscount()"><ion-icon slot="end" name="ticket-outline"></ion-icon>aplicar</ion-button>
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <div [ngClass]="{'divBase-white': !isDarkMode, 'divBase-black': isDarkMode}">
+            <div style="display: flex; justify-content: space-between;">
+              <div>Precio base clase/h:</div>
+              <div>30€</div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <div>Precio base alumno extra:</div>
+              <div>5€</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <div>Duración seleccionada:</div>
+            <div>{{class.duracion}} horas</div>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <div>Alumnos:</div>
+            <div>{{nAlumnos}}</div>
+          </div>
+          <hr [ngClass]="{'hr-white': !isDarkMode, 'hr-black': isDarkMode}">
+            <div style="display: flex; justify-content: space-between;">
+              <div>Añadido por horas:</div>
+              <div>{{30*class.duracion}}€</div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <div>Añadido por alumno:</div>
+              <div>{{5*(nAlumnos-1)}}€</div>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <div>Codigo de descuento:</div>
+              <div>{{code_discount.porcentaje}}%</div>
+            </div>
+            <hr [ngClass]="{'hr-white': !isDarkMode, 'hr-black': isDarkMode}">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: large;">
+                <div>Precio Total:</div>
+                <div>{{total}}€</div>
+              </div>
+            </div>
+            <br>
+            <div style="font-size: small;">
+              <div style="display: flex; justify-content: space-between;">
+                <div>IVA 21%</div>
+                <div>{{(total * 0.21).toFixed(2)}}€</div>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <div>Base Imponible</div>
+                <div>{{(total-(total*0.21)).toFixed(2)}}€</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="pagina1" *ngIf="pagina===5">
+        <h2 class="divStepTitle">
+          Paso 5 de 5: Metodo de pago
+        </h2>
+
+        <div class="form-group">
+            <ion-item class="ion-padding">
+              <ion-radio-group id="mPago" [(ngModel)]="mPago">
+                <ion-radio style="margin-bottom: 5%;" labelPlacement="start" value="tarjeta"><ion-icon color="warning" name="card-outline"></ion-icon> Tarjeta de credito</ion-radio><br />
+                <ion-radio style="margin-bottom: 5%;" labelPlacement="start" value="paypal" (click)="showPaypalToast()"><ion-icon color="primary" name="logo-paypal"></ion-icon> Paypal</ion-radio><br />
+                <ion-radio style="margin-bottom: 5%; color: transparent;" labelPlacement="start" value="bizum"><img style="width: 65px; text-align: left;" src="assets/logo/bizum.svg" /> .</ion-radio><br />
+              </ion-radio-group>
+            </ion-item>
+        </div>
+
+        <div *ngIf="mPago==='tarjeta'">
+          <div class="form-group">
+            <label for="ttarjeta">Titular de tarjeta</label>
+            <ion-item>
+              <ion-input id="tttarjeta" type="text" [clearInput]="true" placeholder="Nombre del titular" [(ngModel)]="tarjeta.nombre"></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-group">
+            <label for="ntarjeta">Número de la tarjeta</label>
+            <ion-item>
+              <ion-input id="ntarjeta" type="text" [clearInput]="true" placeholder="1111222233334444" [(ngModel)]="tarjeta.numero"></ion-input>
+            </ion-item>
+          </div>
+          <div style="display: flex; flex-direction: row; justify-content: space-between;">
+          <div class="form-group" style="margin-right: 5%;">
+            <label for="ftarjeta">Fecha de vencimiento</label>
+            <ion-item>
+              <ion-input id="ftarjeta" type="text" [clearInput]="true" placeholder="01/29" [(ngModel)]="tarjeta.fecha"></ion-input>
+            </ion-item>
+          </div>
+          <div class="form-group">
+            <label for="cdtarjeta">Código de seguridad</label>
+            <ion-item>
+              <ion-input id="cdtarjeta" type="text" [clearInput]="true" [(ngModel)]="tarjeta.cvv"></ion-input>
+            </ion-item>
+          </div>
+        </div>
+        </div>
+        <div *ngIf="mPago==='bizum'">
+          <div class="form-group">
+            <label for="nbizum">Número de telefono</label>
+            <ion-item>
+              <ion-input id="nbizum" type="tel" [clearInput]="true" placeholder="Número a cargar el pago" [(ngModel)]="nbizum"></ion-input>
+            </ion-item>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="divBotones">
+        <ion-button color="danger" style="font-size: small;" (click)="dismiss()"><ion-icon slot="end"
+            name="close-outline"></ion-icon>Cancelar</ion-button>
+        <ion-button *ngIf="pagina!=5" color="primary" style="font-size: small;" (click)="nextStep()"><ion-icon slot="end"
+            name="chevron-forward-outline"></ion-icon>Siguiente</ion-button>
+        <ion-button *ngIf="pagina===5 && (mPago==='tarjeta' || mPago==='paypal' || mPago==='bizum')" color="success" style="font-size: small;" (click)="pay()"><ion-icon slot="end"
+            name="wallet-outline"></ion-icon>Pagar</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

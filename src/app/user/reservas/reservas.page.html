@@ -1,0 +1,50 @@
+<ion-content class="ion-padding">
+    <div class="divPrincipal">
+        <ion-card>
+            <ion-card-header>
+                <div class="divCardTitle">
+                    <ion-card-title>Reservar clases particulares</ion-card-title>
+                </div>   
+                <!-- <hr class="separator">  -->
+            </ion-card-header>
+            <ion-card-content>
+                <div class="divBotones">
+                    <ion-button color="primary" style="font-size: small;" (click)="openInfo()"><ion-icon slot="start" name="information-outline"></ion-icon>Información</ion-button>
+                    <ion-button color="success" style="font-size: small;" (click)="addReserva()">
+                        <ion-icon slot="start" style="color: #fff;" name="add-outline"></ion-icon>
+                        <ion-text style="color: #fff;">Reservar</ion-text>
+                    </ion-button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+        <ion-card style="margin-bottom: 20%;">
+            <ion-card-header>
+                <div class="divCardTitle">
+                    <ion-card-title *ngIf="profile.rol==='user'">Mis Clases</ion-card-title>
+                    <ion-card-title *ngIf="profile.rol==='adm'">Clases de Usuario</ion-card-title>
+                </div>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-searchbar show-clear-button="always" animated="true" placeholder="ID del Titular" [(ngModel)]="searchTerm" (ionChange)="clasesTitular()" (ionClear)="clearSearch()" *ngIf="profile.rol==='adm'"></ion-searchbar>
+                <div class="divTotalClases" *ngFor="let class of listClasses">
+                    <ion-card color="primary" (click)="openClasses(class, class.modalidad)">
+                        <ion-card-header>
+                            <ion-card-title>
+                                <div class="divTimeClass">
+                                    <div>{{class.modalidad}}</div>
+                                    <div style="font-size: small;">{{class.punto_encuentro}} {{class.nivel}}</div>
+                                </div>
+                            </ion-card-title>
+                            <ion-card-subtitle>
+                                <div class="divTimeClass">
+                                    <div>{{class.hora}} a {{calculateEndTime(class.hora, class.duracion)}}</div>
+                                    <div style="text-align: right;">{{class.id}}</div>
+                                </div>
+                            </ion-card-subtitle>
+                        </ion-card-header>
+                    </ion-card>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

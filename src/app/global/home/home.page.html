@@ -1,0 +1,73 @@
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+
+	<div class="video-container">
+		<video autoplay muted loop>
+			<source src="assets/images/skinow_vid.mp4" type="video/mp4">
+		</video>
+		<div
+			[ngClass]="{'gradient-overlay-white': !isDarkMode, 'gradient-overlay-black-ios': isDarkMode && isIos,
+			'gradient-overlay-black-android': isDarkMode && !isIos}">
+		</div>
+
+		<div style="display: flex; justify-content: center; align-items: center; flex-direction: column">
+			<div class="welcome-container">
+				<ion-card [ngClass]="{'welcome-card-white': !isDarkMode, 'welcome-card-black': isDarkMode}">
+					<ion-card-header>
+						<ion-card-title style="font-weight: bold; font-style: italic;">Bienvenid@ <br>{{profile.datos_personales.nombre}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</div>
+		</div>
+	</div>
+
+	<swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChange($event)" [scrollbar]="true"
+		[loop]="true" class="swiper-container">
+		<swiper-slide *ngFor="let ads of listAds">
+			<ion-card>
+				<ion-card-header>
+					<ion-card-title>
+						<div style="display: flex; align-items: center; justify-content: center;">
+							<ion-icon (click)="goPrev()" style="font-size: 50px; margin-left: -2%;" color="primary"
+								name="chevron-back-outline"></ion-icon>
+							<ion-label (click)="goAds(ads)"
+								style="text-align: center; font-size: 16px; margin-inline: 2%;">{{ads.titulo}}</ion-label>
+							<ion-icon (click)="goNext()" [class.clicked]="isIconClicked"
+								style="font-size: 50px; margin-right: -2%;" color="primary"
+								name="chevron-forward-outline"></ion-icon>
+						</div>
+					</ion-card-title>
+				</ion-card-header>
+				<div (click)="goAds(ads)">
+					<div>
+						<img [src]="ads.img" />
+
+					</div>
+					<div class="ads-description">
+						{{ads.descripcion}}
+					</div>
+				</div>
+			</ion-card>
+		</swiper-slide>
+	</swiper-container>
+
+	<div class="ventas">
+		<ion-card (click)="goWebMaterials()"
+			style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+			<img style="height: 65%; margin-top: 5%;" alt="vArticles" src="assets/images/material.png" />
+			<ion-card-title
+				style="margin-left: 5%; margin-right: 5%; font-size: 130%; text-transform: uppercase;">Material de
+				Ski</ion-card-title>
+		</ion-card>
+
+		<ion-card (click)="goWebClothes()"
+			style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+			<img style="height: 60%; margin-top: 5%;" alt="vMaterials" src="assets/images/ropa.png" />
+			<ion-card-title
+				style="margin-top: 8px; margin-left: 5%; margin-right: 5%; font-size: 130%; text-transform: uppercase;">Ropa
+				deportiva</ion-card-title>
+		</ion-card>
+	</div>
+</ion-content>

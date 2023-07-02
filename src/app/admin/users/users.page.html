@@ -1,0 +1,81 @@
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-searchbar style="margin-top: 18%;" [(ngModel)]="searchTerm" (ionChange)="filterUsers()" (ionClear)="clearSearch()" placeholder="Buscador" slot="fixed"></ion-searchbar>
+  <div class="container" style="margin-bottom: 20%; margin-top: 35%;">
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Administradores</ion-card-title>
+      <ion-list [ngClass]="{'listDark': isIos}">
+        <ion-item *ngFor="let user of filteredAdm" (click)="openUser(user)">
+          <div class="tablaUsers">
+            <div>
+              <ion-label class="label1">
+                {{user.contactos.email}}
+              </ion-label>
+            </div>
+            <div class="label2">
+              <ion-label>
+                {{ user.datos_personales.nombre }}
+              </ion-label>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Profesores</ion-card-title>
+      <ion-list [ngClass]="{'listDark': isIos}">
+        <ion-item *ngFor="let user of filteredProf" (click)="openUser(user)">
+          <div class="tablaUsers">
+            <div>
+              <ion-label class="label1">
+                {{user.contactos.email}}
+              </ion-label>
+            </div>
+            <div class="label2">
+              <ion-label>
+                {{ user.datos_personales.nombre }}
+              </ion-label>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Usuarios</ion-card-title>
+      <ion-list [ngClass]="{'listDark': isIos}">
+        <ion-item class="users" *ngFor="let user of filteredUser" (click)="openUser(user)">
+          <div class="tablaUsers">
+            <div>
+              <ion-label class="label1">
+                {{user.contactos.email}}
+              </ion-label>
+            </div>
+            <div class="label2">
+              <ion-label>
+                {{ user.datos_personales.nombre }}
+              </ion-label>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</div>
+  <ion-fab style="margin-bottom: 20%;" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUser()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>

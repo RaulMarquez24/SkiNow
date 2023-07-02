@@ -1,0 +1,59 @@
+ion-card {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  .card {
+    display: flex;
+    justify-content: space-between;
+    background-color: #193d6f;
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px;
+
+    &.name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    &.hour {
+      font-size: 16px;
+    }
+
+    &.number {
+      font-size: 16px;
+      text-align: right;
+    }
+  }
+}
+
+.cardClases {
+      display: flex;
+      justify-content: space-between;
+      border-radius: 10px;
+      color: #fff;
+      padding: 10px;
+    }
+
+.cardClases ion-card-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .cardClases ion-card-subtitle {
+      font-size: 16px;
+    }
+
+    .cardClases ion-card-content {
+      font-size: 16px;
+      text-align: right;
+    }
+
+    .divTimeClass{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      justify-items: center;
+      flex-direction: row;
+  }

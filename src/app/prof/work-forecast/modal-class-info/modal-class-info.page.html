@@ -1,0 +1,151 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img style="position: absolute; margin-left: -10%; height: 80px;" src="assets/images/letras_skinowE.png"
+        alt="letrasSkiNow">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="card">
+    <h1 class="divStepTitle">
+      <ion-label color="primary">{{title}}</ion-label>
+    </h1>
+
+    <div class="card">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3>
+          <ion-label>Datos Titular</ion-label>
+        </h3>
+        <ion-icon *ngIf="!dTVisible" (click)="dTChangeVisible()" name="chevron-up-outline"></ion-icon>
+        <ion-icon *ngIf="dTVisible" (click)="dTChangeVisible()" name="chevron-down-outline"></ion-icon>
+      </div>
+
+      <div style="margin-top: 5%;" *ngIf="dTVisible">
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">ID: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.id_titular}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">Nombre: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.nombre}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">Apellido: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.apellido}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">DNI: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.dni}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">Email: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.email}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">Movil: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.telefono}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="divGruopLabel">
+            <div style="font-weight: bold;">Movil 2: </div>
+            <div style="flex: 1; margin-left: 5px;">{{class.datos_titular.telefono2}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">ID de la Clase: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.id}}</div><!--style="flex: 1; text-align: center;"-->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Fecha: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.fecha}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Hora: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.hora}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Duración: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.duracion}} hora/s</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Modalidad: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.modalidad}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Nivel: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.nivel}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Punto de encuentro: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.punto_encuentro}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabel">
+        <div style="font-weight: bold;">Profesor: </div>
+        <div style="flex: 1; margin-left: 5px;">{{class.id_prof}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="divGruopLabelAlumnos">
+        <div style="font-weight: bold; margin-bottom: 5%;">Alumnos: </div>
+        <div style="flex: 1; margin-left: 5px; margin-bottom: 2%;" *ngFor="let alumnos of class.alumnos">
+          &bull; {{ alumnos }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

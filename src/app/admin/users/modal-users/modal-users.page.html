@@ -1,0 +1,158 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img style="position: absolute; margin-left: -10%; height: 80px;" src="assets/images/letras_skinowE.png"
+        alt="letrasSkiNow">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <div class="card">
+    <h1 class="divStepTitle">
+      <ion-label style="font-size: 20px;" color="primary">{{user.id}}</ion-label>
+    </h1>
+
+    <div class="form-group">
+      <label for="id">ID:</label>
+      <ion-item>
+        <ion-input id="id" type="text" placeholder="ID del usuario" [(ngModel)]="user.id" [readonly]="true"
+          [disabled]="true"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="imagen-de-perfil">Imagen de perfil:</label>
+      <ion-item>
+        <ion-input id="imagen-de-perfil" type="text" [clearInput]="true" placeholder="imagen de perfil"
+          [(ngModel)]="user.imagen_perfil"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <ion-item>
+        <ion-input id="nombre" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.nombre"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="apellido">Apellido:</label>
+      <ion-item>
+        <ion-input id="apellido" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.apellido"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="genero">Género:</label>
+      <ion-item>
+        <ion-select id="genero" placeholder="-" [(ngModel)]="user.datos_personales.genero">
+          <ion-select-option value="M">Masculino</ion-select-option>
+          <ion-select-option value="F">Femenino</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="fecha">Fecha de nacimiento:</label>
+      <ion-item>
+        <ion-input id="fecha" type="text" placeholder="1/1/1970" [clearInput]="true" [(ngModel)]="user.datos_personales.fecha"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección:</label>
+      <ion-item>
+        <ion-input id="direccion" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.direccion"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="codigoPostal">Código postal:</label>
+      <ion-item>
+        <ion-input id="codigoPostal" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.codigoPostal"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="poblacion">Población:</label>
+      <ion-item>
+        <ion-input id="poblacion" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.poblacion"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="provincia">Provincia:</label>
+      <ion-item>
+        <ion-input id="provincia" type="text" [clearInput]="true" [(ngModel)]="user.datos_personales.provincia"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="tipo">Tipo de documento:</label>
+      <ion-item>
+        <ion-select id="tipo" placeholder="-" [(ngModel)]="user.documentos.tipo">
+          <ion-select-option value="DNI">DNI</ion-select-option>
+          <ion-select-option value="other">Otro Documento</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="documento">Número de documento:</label>
+      <ion-item>
+        <ion-input id="documento" type="text" [clearInput]="true" [(ngModel)]="user.documentos.documento"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Correo electrónico:</label>
+      <ion-item>
+        <ion-input id="email" type="text" [clearInput]="true" [(ngModel)]="user.contactos.email"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono:</label>
+      <ion-item>
+        <ion-input id="telefono" type="text" [clearInput]="true" [(ngModel)]="user.contactos.telefono"></ion-input>
+      </ion-item>
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <ion-item>
+        <ion-input id="password" type="password" [clearInput]="true" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="form-group">
+      <label for="rol">Rol:</label>
+      <ion-item>
+        <ion-select id="rol" placeholder="-" [(ngModel)]="user.rol">
+          <ion-select-option value="user">User</ion-select-option>
+          <ion-select-option value="prof">Profesor</ion-select-option>
+          <ion-select-option value="adm">Admin</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+
+  <div class="botonesModalEditar">
+    <ion-button expand="block" color="danger" (click)="deleteUser()">
+      <ion-icon name="trash" slot="start"></ion-icon>
+      Borrar
+    </ion-button>
+    <ion-button expand="block" color="success" (click)="updateUser()">
+      <ion-icon name="save" slot="start"></ion-icon>
+      Actualizar
+    </ion-button>
+  </div>
+
+</ion-content>

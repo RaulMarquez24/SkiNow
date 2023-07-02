@@ -1,0 +1,80 @@
+<ion-app>
+    <app-header *ngIf="!isAuthPage()"></app-header>
+    <ion-split-pane contentId="main-content">
+        <ion-menu *ngIf="!isAuthPage()" contentId="main-content" type="overlay">
+            <ion-content>
+                <div style="margin-top: 20%; text-align: center;">               
+                    <h1>{{profile.datos_personales.nombre}} {{profile.datos_personales.apellido}}</h1>
+                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; text-align: left; padding-inline: 15%;">
+                        <ion-label style="margin-right: 5%;">ID:</ion-label>
+                        <ion-input type="text" placeholder="ID del usuario" [value]="profile.id" [readonly]="true"[disabled]="true"></ion-input>
+                    </div>
+                </div>
+
+                <ion-list id="inbox-list">
+                    <ng-container *ngFor="let p of categorias">
+                        <ion-menu-toggle auto-hide="false" >
+                            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                                routerLinkActive="selected">
+                                <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
+                                    [md]="p.icon + '-sharp'"></ion-icon>
+                                <ion-label>{{ p.title }}</ion-label>
+                            </ion-item>
+                        </ion-menu-toggle>
+                    </ng-container>
+
+                    <ion-item (click)="logout()">
+                        <ion-icon aria-hidden="true" slot="start" name="log-out"></ion-icon>
+                        <ion-label>Salir</ion-label>
+                    </ion-item>
+
+
+                </ion-list>
+
+                <!-- <ion-list id="labels-list">
+                  <ion-list-header>Labels</ion-list-header>
+
+                  <ion-item *ngFor="let label of labels" lines="none">
+                      <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+                      <ion-label>{{ label }}</ion-label>
+                  </ion-item>
+              </ion-list> -->
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-split-pane>
+    <ion-footer *ngIf="!isAuthPage()">
+        <ion-toolbar>
+            <ion-buttons>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <div class="corporate-color iconSelected button"
+                                [ngClass]="{ 'active': currentPage === 'home' }" (click)="navigate('home')">
+                                <ion-icon [color]="currentPage === 'home' ? 'primary' : 'dark'" slot="icon-only"
+                                    name="home-outline"></ion-icon>
+                                <ion-label [color]="currentPage === 'home' ? 'primary' : 'dark'"
+                                    class="labelButton">Inicio</ion-label>
+                            </div>
+                        </ion-col>
+                        <ion-col *ngFor="let p of tabs">
+                            <div class="corporate-color iconSelected button" (click)="navigate(p.url)" [ngClass]="{ 'active': currentPage === p.title }">
+                              <ion-icon aria-hidden="true" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'" [color]="currentPage === p.url ? 'primary' : 'dark'" slot="icon-only"></ion-icon>
+                              <ion-label [color]="currentPage === p.url ? 'primary' : 'dark'" class="labelButton">{{ p.title }}</ion-label>
+                            </div>
+                          </ion-col>
+                        <ion-col>
+                            <div class="corporate-color iconSelected button" [ngClass]="{ 'active': currentPage === 'mas' }"
+                                (click)="navigate('mas')">
+                                <ion-icon [color]="currentPage === 'mas' ? 'primary' : 'dark'" slot="icon-only"
+                                    name="ellipsis-horizontal"></ion-icon>
+                                <ion-label [color]="currentPage === 'mas' ? 'primary' : 'dark'"
+                                    class="labelButton">Mas</ion-label>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-footer>
+</ion-app>
