@@ -19,7 +19,7 @@ A continuación, encontrarás instrucciones sobre cómo configurar y ejecutar la
 ```ssh
 npm install -g @ionic/cli
 ```
-- Para ejecutar el proyecto en modo prueva en tu navegador local:
+- Para ejecutar el proyecto en modo prueba en tu navegador local:
 ```ssh
 cd "nombre del proyecto"
 ionic serve
